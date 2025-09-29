@@ -1,8 +1,10 @@
 import React from "react";
 import HeroSection from "./HeroSection";
 import ServicesSection from "./ServicesSection";
+import AboutSection from "./AboutSection";
 import PortfolioSection from "./PortfolioSection";
 import ContactSection from "./ContactSection";
+import { company } from "../content/siteContent";
 
 const Home = () => {
   return (
@@ -11,7 +13,7 @@ const Home = () => {
       <header className="sticky top-0 z-50 bg-white shadow-md py-4">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center">
-            <h1 className="text-2xl font-bold text-[#2c5f2d]">BM Create</h1>
+            <h1 className="text-2xl font-bold text-[#2c5f2d]">{company.name}</h1>
           </div>
 
           <div className="hidden md:flex items-center space-x-6">
@@ -43,10 +45,10 @@ const Home = () => {
 
           <div className="hidden md:flex items-center space-x-4">
             <a
-              href="tel:+420123456789"
+              href={`tel:${company.phone}`}
               className="text-sm text-gray-700 hover:text-[#2c5f2d]"
             >
-              +420 123 456 789
+              {company.phone}
             </a>
             <a
               href="#contact"
@@ -86,29 +88,7 @@ const Home = () => {
           <ServicesSection />
         </section>
 
-        <section id="about" className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-8 text-[#2c5f2d]">
-              O nás
-            </h2>
-            <div className="max-w-3xl mx-auto text-center">
-              <p className="text-lg mb-6">
-                BM Create je specializovaná stavební společnost zaměřená na
-                výstavbu pasivních domů, které kombinují moderní design s
-                energetickou účinností a udržitelností.
-              </p>
-              <p className="text-lg mb-6">
-                S více než 10 lety zkušeností v oboru přinášíme našim klientům
-                inovativní řešení, která splňují nejvyšší standardy kvality a
-                zároveň respektují životní prostředí.
-              </p>
-              <p className="text-lg">
-                Naším cílem je vytvářet domovy, které jsou nejen krásné a
-                funkční, ale také energeticky soběstačné a šetrné k přírodě.
-              </p>
-            </div>
-          </div>
-        </section>
+        <AboutSection />
 
         <section id="portfolio" className="py-16">
           <PortfolioSection />
@@ -124,10 +104,10 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">BM Create</h3>
-              <p className="mb-2">Specialisté na pasivní domy</p>
+              <h3 className="text-xl font-bold mb-4">{company.name}</h3>
+              <p className="mb-2">{company.tagline}</p>
               <p className="mb-4">
-                Přinášíme inovativní a udržitelná řešení pro moderní bydlení.
+                Zde napište krátký popis vaší firmy pro patičku webu.
               </p>
               <div className="flex space-x-4">
                 <a href="#" className="text-white hover:text-[#ff6b35]">
@@ -168,11 +148,10 @@ const Home = () => {
 
             <div>
               <h3 className="text-xl font-bold mb-4">Kontakt</h3>
-              <p className="mb-2">BM Create s.r.o.</p>
-              <p className="mb-2">Stavební 123</p>
-              <p className="mb-2">110 00 Praha</p>
-              <p className="mb-2">Tel: +420 123 456 789</p>
-              <p className="mb-2">Email: info@bmcreate.cz</p>
+              <p className="mb-2">{company.name}</p>
+              <p className="mb-2">{company.address}</p>
+              <p className="mb-2">Tel: {company.phone}</p>
+              <p className="mb-2">Email: {company.email}</p>
             </div>
 
             <div>
@@ -216,7 +195,7 @@ const Home = () => {
 
           <div className="mt-8 pt-8 border-t border-green-700 text-center">
             <p>
-              &copy; {new Date().getFullYear()} BM Create. Všechna práva
+              &copy; {new Date().getFullYear()} {company.name}. Všechna práva
               vyhrazena.
             </p>
           </div>

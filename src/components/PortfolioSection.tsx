@@ -19,146 +19,37 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { portfolioItems, portfolioCategories, type PortfolioItem } from "../content/portfolioContent";
+import { portfolio } from "../content/siteContent";
 
-interface PortfolioItem {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  category: string;
-  features: string[];
-  details: string;
-}
+// PortfolioItem interface is now imported from portfolioContent.ts
 
 const PortfolioSection = () => {
   const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(
     null,
   );
 
-  // Sample portfolio data
-  const portfolioItems: PortfolioItem[] = [
-    {
-      id: "1",
-      title: "Moderní pasivní dům Praha",
-      description:
-        "Energeticky úsporný rodinný dům s minimální ekologickou stopou.",
-      image:
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
-      category: "residential",
-      features: [
-        "Energetická třída A+",
-        "Tepelné čerpadlo",
-        "Fotovoltaika",
-        "Rekuperace",
-      ],
-      details:
-        "Tento moderní pasivní dům v Praze byl navržen s důrazem na energetickou účinnost a udržitelnost. Využívá nejnovější technologie pro minimalizaci spotřeby energie a maximalizaci komfortu bydlení.",
-    },
-    {
-      id: "2",
-      title: "Ekologická dřevostavba Brno",
-      description: "Dřevostavba s přírodními materiály a nulovými emisemi CO2.",
-      image:
-        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
-      category: "residential",
-      features: [
-        "Dřevěná konstrukce",
-        "Přírodní izolace",
-        "Zelená střecha",
-        "Dešťová voda",
-      ],
-      details:
-        "Ekologická dřevostavba v Brně kombinuje tradiční řemeslo s moderními technologiemi. Použité přírodní materiály zajišťují zdravé vnitřní prostředí a minimální dopad na životní prostředí.",
-    },
-    {
-      id: "3",
-      title: "Kancelářská budova Ostrava",
-      description:
-        "Komerční budova s certifikací LEED Gold a chytrými technologiemi.",
-      image:
-        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
-      category: "commercial",
-      features: [
-        "LEED Gold",
-        "Smart building",
-        "Zelené fasády",
-        "Úsporné osvětlení",
-      ],
-      details:
-        "Kancelářská budova v Ostravě představuje špičku v komerčních pasivních stavbách. Certifikace LEED Gold potvrzuje její výjimečné vlastnosti v oblasti energetické účinnosti a udržitelnosti.",
-    },
-    {
-      id: "4",
-      title: "Rekonstrukce historické vily",
-      description:
-        "Citlivá rekonstrukce historické budovy na pasivní standard.",
-      image:
-        "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800&q=80",
-      category: "renovation",
-      features: [
-        "Zachování historických prvků",
-        "Moderní izolace",
-        "Podlahové vytápění",
-        "Chytré řízení",
-      ],
-      details:
-        "Rekonstrukce historické vily ukazuje, že i starší budovy mohou dosáhnout pasivního standardu. Projekt kombinuje respekt k historické hodnotě s moderními technologiemi pro úsporu energie.",
-    },
-    {
-      id: "5",
-      title: "Bytový komplex Plzeň",
-      description: "Moderní bytový dům s 12 jednotkami v pasivním standardu.",
-      image:
-        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
-      category: "residential",
-      features: [
-        "Komunitní zahrada",
-        "Sdílená fotovoltaika",
-        "Dobíjecí stanice",
-        "Rekuperace",
-      ],
-      details:
-        "Bytový komplex v Plzni nabízí moderní bydlení v pasivním standardu. Společné prvky jako komunitní zahrada a sdílená fotovoltaika podporují udržitelný životní styl obyvatel.",
-    },
-    {
-      id: "6",
-      title: "Školka Liberec",
-      description:
-        "Vzdělávací zařízení s důrazem na zdravé prostředí pro děti.",
-      image:
-        "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&q=80",
-      category: "public",
-      features: [
-        "Přírodní materiály",
-        "Kvalita vnitřního vzduchu",
-        "Přírodní zahrada",
-        "Nízká spotřeba",
-      ],
-      details:
-        "Školka v Liberci byla navržena s ohledem na specifické potřeby dětí. Zdravé vnitřní prostředí, přírodní materiály a nízká energetická náročnost z ní dělají vzorový projekt pro vzdělávací zařízení.",
-    },
-  ];
+  // Portfolio data is now imported from portfolioContent.ts
 
   return (
     <section id="portfolio" className="py-16 px-4 md:px-8 bg-gray-50">
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
-            Naše realizace
+            {portfolio.title}
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Prohlédněte si výběr z našich dokončených projektů pasivních domů a
-            energeticky úsporných staveb.
+            {portfolio.subtitle}
           </p>
         </div>
 
         <Tabs defaultValue="all" className="mb-8">
           <TabsList className="mx-auto flex justify-center">
-            <TabsTrigger value="all">Všechny projekty</TabsTrigger>
-            <TabsTrigger value="residential">Rodinné domy</TabsTrigger>
-            <TabsTrigger value="commercial">Komerční</TabsTrigger>
-            <TabsTrigger value="renovation">Rekonstrukce</TabsTrigger>
-            <TabsTrigger value="public">Veřejné stavby</TabsTrigger>
+            <TabsTrigger value="all">{portfolioCategories.all}</TabsTrigger>
+            <TabsTrigger value="residential">{portfolioCategories.residential}</TabsTrigger>
+            <TabsTrigger value="commercial">{portfolioCategories.commercial}</TabsTrigger>
+            <TabsTrigger value="renovation">{portfolioCategories.renovation}</TabsTrigger>
+            <TabsTrigger value="public">{portfolioCategories.public}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="all" className="mt-6">
@@ -225,6 +116,15 @@ const PortfolioSection = () => {
                   />
                 </div>
                 <div>
+                  <div className="mb-4">
+                    <p className="text-sm text-gray-600 mb-1">
+                      <strong>Lokalita:</strong> {selectedProject.location} | <strong>Rok:</strong> {selectedProject.year}
+                    </p>
+                    <p className="text-sm text-gray-600 mb-3">
+                      <strong>Velikost:</strong> {selectedProject.size} | <strong>Energetická třída:</strong> {selectedProject.energyClass}
+                    </p>
+                  </div>
+                  
                   <h4 className="font-semibold mb-2">Klíčové vlastnosti:</h4>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {selectedProject.features.map((feature, index) => (
@@ -237,6 +137,24 @@ const PortfolioSection = () => {
                       </Badge>
                     ))}
                   </div>
+                  
+                  {selectedProject.technicalParams && (
+                    <div className="mb-4">
+                      <h4 className="font-semibold mb-2">Technické parametry:</h4>
+                      <div className="text-sm text-gray-600 space-y-1">
+                        {selectedProject.technicalParams.airTightness && (
+                          <p><strong>Vzduchotěsnost:</strong> {selectedProject.technicalParams.airTightness}</p>
+                        )}
+                        {selectedProject.technicalParams.energyDemand && (
+                          <p><strong>Energetická náročnost:</strong> {selectedProject.technicalParams.energyDemand}</p>
+                        )}
+                        {selectedProject.technicalParams.heatLoss && (
+                          <p><strong>Tepelná ztráta:</strong> {selectedProject.technicalParams.heatLoss}</p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                  
                   <p className="text-gray-700">{selectedProject.details}</p>
                 </div>
               </div>
@@ -271,6 +189,9 @@ const PortfolioCard = ({ project, onSelect }: PortfolioCardProps) => {
       <CardHeader className="pb-2">
         <CardTitle className="text-xl">{project.title}</CardTitle>
         <CardDescription>{project.description}</CardDescription>
+        <div className="text-xs text-gray-500 mt-2">
+          {project.location} • {project.year} • {project.size}
+        </div>
       </CardHeader>
       <CardContent className="pb-2">
         <div className="flex flex-wrap gap-1">

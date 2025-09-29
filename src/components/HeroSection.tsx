@@ -12,6 +12,7 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Label } from "./ui/label";
 import { ArrowRight, Phone, Mail } from "lucide-react";
+import { hero, company } from "../content/siteContent";
 
 interface HeroSectionProps {
   title?: string;
@@ -21,10 +22,10 @@ interface HeroSectionProps {
 }
 
 const HeroSection = ({
-  title = "Pasivní domy pro moderní život",
-  subtitle = "Energeticky úsporné, ekologické a komfortní bydlení pro vaši rodinu. Stavíme domy budoucnosti s důrazem na kvalitu a udržitelnost.",
-  ctaText = "Nezávazná konzultace",
-  backgroundImage = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
+  title = hero.title,
+  subtitle = hero.subtitle,
+  ctaText = hero.ctaText,
+  backgroundImage = hero.backgroundImage,
 }: HeroSectionProps) => {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
@@ -59,14 +60,14 @@ const HeroSection = ({
                 size="lg"
                 className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20"
               >
-                <Phone className="mr-2 h-4 w-4" /> +420 123 456 789
+                <Phone className="mr-2 h-4 w-4" /> {company.phone}
               </Button>
               <Button
                 variant="outline"
                 size="lg"
                 className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20"
               >
-                <Mail className="mr-2 h-4 w-4" /> info@bmcreate.cz
+                <Mail className="mr-2 h-4 w-4" /> {company.email}
               </Button>
             </div>
           </div>

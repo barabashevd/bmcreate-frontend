@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Home, Ruler, Wrench } from "lucide-react";
+import { services } from "../content/siteContent";
 
 interface ServiceCardProps {
   icon: React.ReactNode;
@@ -43,24 +44,21 @@ const ServiceCard = ({
 };
 
 const ServicesSection = () => {
-  const services = [
+  const serviceItems = [
     {
       icon: <Home className="h-12 w-12" />,
-      title: "Návrh pasivních domů",
-      description:
-        "Specializujeme se na návrh energeticky úsporných pasivních domů, které splňují nejvyšší standardy kvality a komfortu bydlení.",
+      title: services.items[0].title,
+      description: services.items[0].description,
     },
     {
       icon: <Ruler className="h-12 w-12" />,
-      title: "Realizace staveb",
-      description:
-        "Kompletní realizace staveb od základů až po klíč s důrazem na kvalitu provedení a použití moderních technologií a materiálů.",
+      title: services.items[1].title,
+      description: services.items[1].description,
     },
     {
       icon: <Wrench className="h-12 w-12" />,
-      title: "Rekonstrukce",
-      description:
-        "Přestavby a rekonstrukce stávajících objektů na energeticky úsporné budovy s využitím nejnovějších postupů a materiálů.",
+      title: services.items[2].title,
+      description: services.items[2].description,
     },
   ];
 
@@ -69,16 +67,15 @@ const ServicesSection = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#2c5f2d]">
-            Naše služby
+            {services.title}
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Nabízíme komplexní řešení v oblasti pasivního stavebnictví - od
-            návrhu až po realizaci.
+            {services.subtitle}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
+          {serviceItems.map((service, index) => (
             <ServiceCard
               key={index}
               icon={service.icon}
