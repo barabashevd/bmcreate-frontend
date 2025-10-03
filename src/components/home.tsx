@@ -13,7 +13,11 @@ const Home = () => {
       <header className="sticky top-0 z-50 bg-white shadow-md py-4">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center">
-            <h1 className="text-2xl font-bold text-[#2c5f2d]">{company.name}</h1>
+            <img 
+              src="/images/logo/logo.png" 
+              alt={company.name}
+              className="h-10 w-auto"
+            />
           </div>
 
           <div className="hidden md:flex items-center space-x-6">
@@ -103,14 +107,14 @@ const Home = () => {
       <footer className="bg-[#2c5f2d] text-white py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
+            <div className="flex flex-col">
               <h3 className="text-xl font-bold mb-4">{company.name}</h3>
               <p className="mb-2">{company.tagline}</p>
               {/* <p className="mb-4">
                 Zde napište krátký popis vaší firmy pro patičku webu.
               </p> */}
-              <div className="flex space-x-4">
-                <a href="#" className="text-white hover:text-[#ff6b35]">
+              <div className="flex space-x-4 mt-auto">
+                <a href="#" className="text-white hover:text-[#ff6b35] transition-colors">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
@@ -120,7 +124,7 @@ const Home = () => {
                     <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
                   </svg>
                 </a>
-                <a href="#" className="text-white hover:text-[#ff6b35]">
+                <a href="#" className="text-white hover:text-[#ff6b35] transition-colors">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
@@ -132,7 +136,7 @@ const Home = () => {
                 </a>
                 <a
                   href={`https://wa.me/${company.whatsapp}`}
-                  className="text-white hover:text-[#ff6b35]"
+                  className="text-white hover:text-[#ff6b35] transition-colors"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

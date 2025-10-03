@@ -54,7 +54,7 @@ const AboutSection = ({
           <div className="max-w-4xl mx-auto">
             {/* Semi-transparent content box */}
             <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-2xl">
-              <h2 className="text-4xl md:text-5xl font-bold text-center mb-8 text-[#214121]">
+              <h2 className="text-4xl md:text-5xl font-bold text-center mb-8 text-[#2c5f2d]">
                 {title}
               </h2>
               <div className="space-y-6">

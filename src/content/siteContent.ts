@@ -7,7 +7,7 @@ export const siteContent = {
     name: "BM Create s.r.o.",
     tagline: "Pasivní bydlení bez kompromisů",
     phone: "+420 777 811 508",
-    email: "barabashev@bmcreate.cz",
+    email: "info@bmcreate.cz",
     address: "Zlatá 62, 250 83",
     whatsapp: "420777811508"
   },
@@ -15,12 +15,12 @@ export const siteContent = {
   // Hero Section
   hero: {
     title: "Pasivní domy s 25letou zkušeností",
-    subtitle: "Stavíme energeticky úsporné domy s garantovanou kvalitou. Kompletní realizace od návrhu po kolaudaci včetně čerpání dotací. Platba až po dokončení každé etapy.",
+    subtitle: "Stavíme energeticky úsporné domy s garantovanou kvalitou. Kompletní realizace od návrhu po kolaudaci včetně čerpání dotací. Transparentní a flexibilní financování každého kroku.",
     ctaText: "Nezávazná konzultace zdarma",
     // OPTION 1: Use your local image (recommended)
-    // backgroundImage: "/images/hero/your-hero-image.jpg"
+    backgroundImage: "/images/hero/hero2.jpg"
     // OPTION 2: Or keep using online image
-    backgroundImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80"
+    // backgroundImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80"
   },
 
   // About Section

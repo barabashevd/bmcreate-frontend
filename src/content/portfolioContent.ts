@@ -33,10 +33,10 @@ export const portfolioItems: PortfolioItem[] = [
     id: "1",
     title: "Dům pro hosty - Nebušice",
     description: "Pasivní bungalov s výjimečným designem a zelnou střechou napojenu na okolní louku.",
-    image: "/images/portfolio/nebusice/exterior.jpg",
+    image: "/images/portfolio/nebusice/exterior2.png",
     images: [
       {
-        src: "/images/portfolio/nebusice/exterior.jpg",
+        src: "/images/portfolio/nebusice/exterior2.png",
         alt: "Exteriér pasivního domu pro hosty",
         label: "Exteriér"
       },
@@ -117,10 +117,10 @@ export const portfolioItems: PortfolioItem[] = [
     id: "3",
     title: "Rodinný dům Sluštice", 
     description: "Rychle realizovaný rodinný dům s kombinací ploché střechy a pálené tašky.",
-    image: "/images/portfolio/slustice/exterior.jpg",
+    image: "/images/portfolio/slustice/exterior3.png",
     images: [
       {
-        src: "/images/portfolio/slustice/exterior.jpg",
+        src: "/images/portfolio/slustice/exterior3.png",
         alt: "Exteriér rychle realizovaného rodinného domu",
         label: "Exteriér"
       },
