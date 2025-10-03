@@ -231,10 +231,10 @@ const Home = () => {
                 &copy; {new Date().getFullYear()} {company.name}. Všechna práva vyhrazena.
               </p>
               <div className="flex space-x-6 text-sm">
-                <a href="#" className="text-white/60 hover:text-[#ff6b35] transition-colors">
+                <a href="/privacy" className="text-white/60 hover:text-[#ff6b35] transition-colors">
                   Ochrana údajů
                 </a>
-                <a href="#" className="text-white/60 hover:text-[#ff6b35] transition-colors">
+                <a href="/terms" className="text-white/60 hover:text-[#ff6b35] transition-colors">
                   Obchodní podmínky
                 </a>
               </div>
