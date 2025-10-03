@@ -28,6 +28,7 @@ const PortfolioSection = () => {
   const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(
     null,
   );
+  const [selectedImage, setSelectedImage] = useState<string>("exterior");
 
   // Portfolio data is now imported from portfolioContent.ts
 
@@ -95,77 +96,169 @@ const PortfolioSection = () => {
           </div>
         )}
 
-        {/* Project Detail Dialog */}
+        {/* Project Detail Modal */}
         {selectedProject && (
           <Dialog
             open={!!selectedProject}
-            onOpenChange={(open) => !open && setSelectedProject(null)}
+            onOpenChange={(open) => {
+              if (!open) {
+                setSelectedProject(null);
+                setSelectedImage("exterior");
+              }
+            }}
           >
-            <DialogContent className="max-w-4xl">
-              <DialogHeader>
-                <DialogTitle className="text-2xl font-bold">
-                  {selectedProject.title}
-                </DialogTitle>
-                <DialogDescription className="text-base">
-                  {selectedProject.description}
-                </DialogDescription>
-              </DialogHeader>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <img
-                    src={selectedProject.image}
-                    alt={selectedProject.title}
-                    className="w-full h-64 object-cover rounded-md"
-                  />
-                </div>
-                <div>
-                  <div className="mb-4">
-                    <p className="text-sm text-gray-600 mb-1">
-                      <strong>Lokalita:</strong> {selectedProject.location} | <strong>Rok:</strong> {selectedProject.year}
-                    </p>
-                    <p className="text-sm text-gray-600 mb-3">
-                      <strong>Velikost:</strong> {selectedProject.size} | <strong>Energetická třída:</strong> {selectedProject.energyClass}
-                    </p>
-                  </div>
-                  
-                  <h4 className="font-semibold mb-2">Klíčové vlastnosti:</h4>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {selectedProject.features.map((feature, index) => (
-                      <Badge
-                        key={index}
-                        variant="outline"
-                        className="bg-green-50 text-green-700 border-green-200"
+            <DialogContent 
+              className="w-[min(92vw,1040px)] max-h-[95vh] overflow-y-auto p-0"
+              onKeyDown={(e) => {
+                if (e.key === 'Escape') {
+                  setSelectedProject(null);
+                  setSelectedImage("exterior");
+                }
+              }}
+            >
+              <div className="space-y-6 p-6">
+                {/* Header */}
+                <DialogHeader>
+                  <DialogTitle className="text-xl md:text-2xl font-bold leading-tight">
+                    {selectedProject.title}
+                  </DialogTitle>
+                  <DialogDescription className="text-sm md:text-base leading-relaxed">
+                    {selectedProject.description}
+                  </DialogDescription>
+                </DialogHeader>
+
+                {/* Hero Image Gallery */}
+                <div className="space-y-4">
+                  {/* Hero Image */}
+                  <figure className="w-full">
+                    <div className="relative w-full aspect-[16/9] overflow-hidden rounded-lg">
+                      <img
+                        src={selectedProject.images[selectedImage as keyof typeof selectedProject.images]}
+                        alt={selectedImage === "exterior" ? "Exteriér" : 
+                             selectedImage === "interior" ? "Interiér" :
+                             selectedImage === "livingRoom" ? "Obývací pokoj" : "Kuchyň"}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                    <figcaption className="sr-only">
+                      {selectedImage === "exterior" && "Exteriér domu"}
+                      {selectedImage === "interior" && "Interiér domu"}
+                      {selectedImage === "livingRoom" && "Obývací pokoj"}
+                      {selectedImage === "kitchen" && "Kuchyň"}
+                    </figcaption>
+                  </figure>
+
+                  {/* Thumbnail Navigation */}
+                  <nav className="flex gap-2 justify-center" role="tablist" aria-label="Galerie obrázků">
+                    {Object.entries({
+                      exterior: "Exteriér",
+                      interior: "Interiér", 
+                      livingRoom: "Obývací pokoj",
+                      kitchen: "Kuchyň"
+                    }).map(([key, label]) => (
+                      <button
+                        key={key}
+                        onClick={() => setSelectedImage(key)}
+                        role="tab"
+                        aria-selected={selectedImage === key}
+                        aria-label={`Zobrazit ${label.toLowerCase()}`}
+                        className={`
+                          relative flex-shrink-0 w-16 sm:w-20 md:w-24 aspect-[4/3] 
+                          overflow-hidden rounded-lg transition-all duration-200 
+                          focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
+                          ${selectedImage === key 
+                            ? 'ring-2 ring-green-500 ring-offset-2 opacity-100' 
+                            : 'opacity-70 hover:opacity-100 hover:ring-1 hover:ring-gray-300'
+                          }
+                        `}
                       >
-                        {feature}
-                      </Badge>
+                        <img
+                          src={selectedProject.images[key as keyof typeof selectedProject.images]}
+                          alt={label}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-200" />
+                        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-center py-1">
+                          <span className="text-xs font-medium">
+                            {label}
+                          </span>
+                        </div>
+                      </button>
                     ))}
-                  </div>
-                  
-                  {selectedProject.technicalParams && (
-                    <div className="mb-4">
-                      <h4 className="font-semibold mb-2">Technické parametry:</h4>
-                      <div className="text-sm text-gray-600 space-y-1">
-                        {selectedProject.technicalParams.airTightness && (
-                          <p><strong>Vzduchotěsnost:</strong> {selectedProject.technicalParams.airTightness}</p>
-                        )}
-                        {selectedProject.technicalParams.energyDemand && (
-                          <p><strong>Energetická náročnost:</strong> {selectedProject.technicalParams.energyDemand}</p>
-                        )}
-                        {selectedProject.technicalParams.heatLoss && (
-                          <p><strong>Tepelná ztráta:</strong> {selectedProject.technicalParams.heatLoss}</p>
-                        )}
+                  </nav>
+                </div>
+
+                {/* Project Details */}
+                <div className="space-y-6 border-t pt-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <p className="text-sm text-gray-600">
+                          <strong>Lokalita:</strong> {selectedProject.location}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          <strong>Rok:</strong> {selectedProject.year}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          <strong>Velikost:</strong> {selectedProject.size}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          <strong>Energetická třída:</strong> {selectedProject.energyClass}
+                        </p>
+                      </div>
+                      
+                      <div>
+                        <h4 className="font-semibold mb-3 text-base">Klíčové vlastnosti:</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedProject.features.map((feature, index) => (
+                            <Badge
+                              key={index}
+                              variant="outline"
+                              className="bg-green-50 text-green-700 border-green-200 text-xs px-2 py-1"
+                            >
+                              {feature}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  )}
-                  
-                  <p className="text-gray-700">{selectedProject.details}</p>
+                    
+                    <div className="space-y-4">
+                      {selectedProject.technicalParams && (
+                        <div>
+                          <h4 className="font-semibold mb-3 text-base">Technické parametry:</h4>
+                          <div className="space-y-2 text-sm text-gray-600">
+                            {selectedProject.technicalParams.airTightness && (
+                              <p><strong>Vzduchotěsnost:</strong> {selectedProject.technicalParams.airTightness}</p>
+                            )}
+                            {selectedProject.technicalParams.energyDemand && (
+                              <p><strong>Energetická náročnost:</strong> {selectedProject.technicalParams.energyDemand}</p>
+                            )}
+                            {selectedProject.technicalParams.heatLoss && (
+                              <p><strong>Tepelná ztráta:</strong> {selectedProject.technicalParams.heatLoss}</p>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                      
+                      <div>
+                        <h4 className="font-semibold mb-3 text-base">Popis:</h4>
+                        <p className="text-gray-700 text-sm leading-relaxed">
+                          {selectedProject.details}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                
+                <DialogClose asChild>
+                  <Button className="w-full bg-green-700 hover:bg-green-800 text-base py-3">
+                    Zavřít
+                  </Button>
+                </DialogClose>
               </div>
-              <DialogClose asChild>
-                <Button className="mt-4 bg-green-700 hover:bg-green-800">
-                  Zavřít
-                </Button>
-              </DialogClose>
             </DialogContent>
           </Dialog>
         )}

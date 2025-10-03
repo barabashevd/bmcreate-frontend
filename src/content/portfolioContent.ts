@@ -5,7 +5,13 @@ export interface PortfolioItem {
   id: string;
   title: string;
   description: string;
-  image: string;
+  image: string; // Main exterior image for the card
+  images: {
+    exterior: string;
+    interior: string;
+    livingRoom: string;
+    kitchen: string;
+  };
   category: "residential" | "commercial" | "renovation" | "public";
   features: string[];
   details: string;
@@ -27,7 +33,13 @@ export const portfolioItems: PortfolioItem[] = [
     title: "Dům pro hosty - Nebušice",
     description: "Pasivní bungalov s výjimečným designem a zelnou střechou napojenu na okolní louku.",
     // Use your local images here
-    image: "/images/portfolio/nebusice-exterior.jpg",
+    image: "/images/portfolio/nebusice/exterior.jpg",
+    images: {
+      exterior: "/images/portfolio/nebusice/exterior.jpg",
+      interior: "/images/portfolio/nebusice/interior.jpg",
+      livingRoom: "/images/portfolio/nebusice/living-room.jpg",
+      kitchen: "/images/portfolio/nebusice/kitchen.jpg"
+    },
     category: "residential",
     location: "Nebušice - Praha",
     year: 2021,
@@ -53,7 +65,13 @@ export const portfolioItems: PortfolioItem[] = [
     id: "2", 
     title: "Rodinný dům Mnichovice",
     description: "Moderní rodinný dům s výjimečnými parametry vzduchotěsnosti a energetické úspornosti.",
-    image: "/images/portfolio/mnichovice-exterior.jpg",
+    image: "/images/portfolio/mnichovice/exterior.jpg",
+    images: {
+      exterior: "/images/portfolio/mnichovice/exterior.jpg",
+      interior: "/images/portfolio/mnichovice/interior.jpg",
+      livingRoom: "/images/portfolio/mnichovice/living-room.jpg",
+      kitchen: "/images/portfolio/mnichovice/kitchen.jpg"
+    },
     category: "residential",
     location: "Mnichovice",
     year: 2021,
@@ -77,7 +95,13 @@ export const portfolioItems: PortfolioItem[] = [
     id: "3",
     title: "Rodinný dům Sluštice", 
     description: "Rychle realizovaný rodinný dům s kombinací ploché střechy a pálené tašky.",
-    image: "/images/portfolio/slustice-exterior.jpg",
+    image: "/images/portfolio/slustice/exterior.jpg",
+    images: {
+      exterior: "/images/portfolio/slustice/exterior.jpg",
+      interior: "/images/portfolio/slustice/interior.jpg",
+      livingRoom: "/images/portfolio/slustice/living-room.jpg",
+      kitchen: "/images/portfolio/slustice/kitchen.jpg"
+    },
     category: "residential",
     location: "Sluštice",
     year: 2023,
