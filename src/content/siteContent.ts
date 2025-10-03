@@ -18,18 +18,18 @@ export const siteContent = {
     subtitle: "Stavíme energeticky úsporné domy s garantovanou kvalitou. Kompletní realizace od návrhu po kolaudaci včetně čerpání dotací. Platba až po dokončení každé etapy.",
     ctaText: "Nezávazná konzultace zdarma",
     // OPTION 1: Use your local image (recommended)
-    backgroundImage: "/images/hero/your-hero-image.jpg"
+    // backgroundImage: "/images/hero/your-hero-image.jpg"
     // OPTION 2: Or keep using online image
-    // backgroundImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80"
+    backgroundImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80"
   },
 
   // About Section
   about: {
     title: "O nás",
     paragraphs: [
-      "BM Create s.r.o. byla založena v roce 2023, ale vedení společnosti i zaměstnanci mají rozsáhlé zkušenosti ve stavebnictví. Specializujeme se na výstavbu pasivních domů s důrazem na kvalitu, spolehlivost a energetickou úspornost.",
-      "Během existence společnosti jsme nashromáždili bohaté zkušenosti a sestavili tým vysoce profesionálních pracovníků ve všech oblastech stavebního odvětví. Více než 20 úspěšně dokončených projektů potvrzuje naši expertizu v oblasti pasivního stavebnictví.",
-      "Naše filosofie je jednoduchá: nabídnout zákazníkům jedinečnou službu, která jim umožní splnit si jejich sny o vlastním domě. Projdeme s vámi cestu od zrodu myšlenky až po kompletní realizaci - pohodlně, rychle a efektivně."
+      "BM Create s.r.o. se specializuje na výstavbu energeticky úsporných domů s důrazem na kvalitu a moderní technologie. Naším cílem je poskytovat komplexní služby v oblasti pasivního stavebnictví - od návrhu až po finální realizaci.",
+      "Náš tým tvoří zkušení odborníci, kteří se zaměřují na detailní přípravu projektů a precizní provedení každé etapy výstavby. Klademe důraz na použití kvalitních materiálů a osvědčených technologií pro dosažení nejlepších výsledků.",
+      "Věříme v osobní přístup ke každému klientovi a transparentní komunikaci během celého procesu výstavby. Naším posláním je vytvářet domy, které splňují nejen technické požadavky, ale také individuální představy našich zákazníků o komfortním bydlení."
     ]
   },
 

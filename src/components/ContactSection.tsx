@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { MapPin, Phone, Mail, MessageSquare } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { company } from "../content/siteContent";
 
 interface ContactSectionProps {
   id?: string;
@@ -164,7 +165,7 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
                     <div>
                       <h4 className="font-medium">Adresa</h4>
                       <p className="text-gray-600">
-                        Ukázková 123, 123 45 Praha
+                        {company.address}
                       </p>
                     </div>
                   </div>
@@ -175,10 +176,10 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
                       <h4 className="font-medium">Telefon</h4>
                       <p className="text-gray-600">
                         <a
-                          href="tel:+420123456789"
+                          href={`tel:${company.phone}`}
                           className="hover:text-[#2c5f2d]"
                         >
-                          +420 123 456 789
+                          {company.phone}
                         </a>
                       </p>
                     </div>
@@ -190,10 +191,10 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
                       <h4 className="font-medium">E-mail</h4>
                       <p className="text-gray-600">
                         <a
-                          href="mailto:info@bmcreate.cz"
+                          href={`mailto:${company.email}`}
                           className="hover:text-[#2c5f2d]"
                         >
-                          info@bmcreate.cz
+                          {company.email}
                         </a>
                       </p>
                     </div>
@@ -205,7 +206,7 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
                       <h4 className="font-medium">WhatsApp</h4>
                       <p className="text-gray-600">
                         <a
-                          href="https://wa.me/420123456789"
+                          href={`https://wa.me/${company.whatsapp}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="hover:text-[#2c5f2d]"

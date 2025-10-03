@@ -106,9 +106,9 @@ const Home = () => {
             <div>
               <h3 className="text-xl font-bold mb-4">{company.name}</h3>
               <p className="mb-2">{company.tagline}</p>
-              <p className="mb-4">
+              {/* <p className="mb-4">
                 Zde napište krátký popis vaší firmy pro patičku webu.
-              </p>
+              </p> */}
               <div className="flex space-x-4">
                 <a href="#" className="text-white hover:text-[#ff6b35]">
                   <svg
@@ -131,7 +131,7 @@ const Home = () => {
                   </svg>
                 </a>
                 <a
-                  href="https://wa.me/420123456789"
+                  href={`https://wa.me/${company.whatsapp}`}
                   className="text-white hover:text-[#ff6b35]"
                 >
                   <svg

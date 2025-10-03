@@ -102,8 +102,8 @@ export const portfolioItems: PortfolioItem[] = [
 // Portfolio categories for filtering
 export const portfolioCategories = {
   all: "Všechny projekty",
-  residential: "Rodinné domy", 
-  commercial: "Komerční",
-  renovation: "Rekonstrukce",
-  public: "Veřejné stavby"
+  residential: "Rodinné domy"
+  // commercial: "Komerční",
+  // renovation: "Rekonstrukce",
+  // public: "Veřejné stavby"
 };

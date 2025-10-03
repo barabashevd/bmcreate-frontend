@@ -47,9 +47,9 @@ const PortfolioSection = () => {
           <TabsList className="mx-auto flex justify-center">
             <TabsTrigger value="all">{portfolioCategories.all}</TabsTrigger>
             <TabsTrigger value="residential">{portfolioCategories.residential}</TabsTrigger>
-            <TabsTrigger value="commercial">{portfolioCategories.commercial}</TabsTrigger>
-            <TabsTrigger value="renovation">{portfolioCategories.renovation}</TabsTrigger>
-            <TabsTrigger value="public">{portfolioCategories.public}</TabsTrigger>
+            {/* <TabsTrigger value="commercial">{portfolioCategories.commercial}</TabsTrigger> */}
+            {/* <TabsTrigger value="renovation">{portfolioCategories.renovation}</TabsTrigger> */}
+            {/* <TabsTrigger value="public">{portfolioCategories.public}</TabsTrigger> */}
           </TabsList>
 
           <TabsContent value="all" className="mt-6">
@@ -83,14 +83,17 @@ const PortfolioSection = () => {
           )}
         </Tabs>
 
-        <div className="text-center mt-10">
-          <Button
-            variant="outline"
-            className="border-green-700 text-green-700 hover:bg-green-700 hover:text-white"
-          >
-            Zobrazit více projektů
-          </Button>
-        </div>
+        {/* Only show "More projects" button if there are more than 6 projects */}
+        {portfolioItems.length > 4 && (
+          <div className="text-center mt-10">
+            <Button
+              variant="outline"
+              className="border-green-700 text-green-700 hover:bg-green-700 hover:text-white"
+            >
+              Zobrazit více projektů
+            </Button>
+          </div>
+        )}
 
         {/* Project Detail Dialog */}
         {selectedProject && (
