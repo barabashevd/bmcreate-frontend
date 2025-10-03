@@ -108,7 +108,7 @@ const PortfolioSection = () => {
             }}
           >
             <DialogContent 
-              className="w-[min(92vw,1040px)] max-h-[95vh] overflow-y-auto p-0"
+              className="!w-[min(95vw,1400px)] !max-w-[1400px] h-[95vh] flex flex-col p-0"
               onKeyDown={(e) => {
                 if (e.key === 'Escape') {
                   setSelectedProject(null);
@@ -116,9 +116,9 @@ const PortfolioSection = () => {
                 }
               }}
             >
-              <div className="space-y-6 p-6">
-                {/* Header */}
-                <DialogHeader>
+              <div className="flex flex-col h-full p-6">
+                {/* Header - Fixed */}
+                <DialogHeader className="flex-shrink-0 mb-4">
                   <DialogTitle className="text-xl md:text-2xl font-bold leading-tight">
                     {selectedProject.title}
                   </DialogTitle>
@@ -127,134 +127,138 @@ const PortfolioSection = () => {
                   </DialogDescription>
                 </DialogHeader>
 
-                {/* Hero Image Gallery */}
-                <div className="space-y-4">
-                  {/* Hero Image */}
-                  <figure className="w-full">
-                    <div className="relative w-full aspect-[16/9] overflow-hidden rounded-lg">
-                      <img
-                        src={selectedProject.images[selectedImage as keyof typeof selectedProject.images]}
-                        alt={selectedImage === "exterior" ? "Exteriér" : 
-                             selectedImage === "interior" ? "Interiér" :
-                             selectedImage === "livingRoom" ? "Obývací pokoj" : "Kuchyň"}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
-                    </div>
-                    <figcaption className="sr-only">
-                      {selectedImage === "exterior" && "Exteriér domu"}
-                      {selectedImage === "interior" && "Interiér domu"}
-                      {selectedImage === "livingRoom" && "Obývací pokoj"}
-                      {selectedImage === "kitchen" && "Kuchyň"}
-                    </figcaption>
-                  </figure>
-
-                  {/* Thumbnail Navigation */}
-                  <nav className="flex gap-2 justify-center" role="tablist" aria-label="Galerie obrázků">
-                    {Object.entries({
-                      exterior: "Exteriér",
-                      interior: "Interiér", 
-                      livingRoom: "Obývací pokoj",
-                      kitchen: "Kuchyň"
-                    }).map(([key, label]) => (
-                      <button
-                        key={key}
-                        onClick={() => setSelectedImage(key)}
-                        role="tab"
-                        aria-selected={selectedImage === key}
-                        aria-label={`Zobrazit ${label.toLowerCase()}`}
-                        className={`
-                          relative flex-shrink-0 w-16 sm:w-20 md:w-24 aspect-[4/3] 
-                          overflow-hidden rounded-lg transition-all duration-200 
-                          focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
-                          ${selectedImage === key 
-                            ? 'ring-2 ring-green-500 ring-offset-2 opacity-100' 
-                            : 'opacity-70 hover:opacity-100 hover:ring-1 hover:ring-gray-300'
-                          }
-                        `}
-                      >
+                {/* Main Content - Flexible */}
+                <div className="flex-1 flex flex-col lg:flex-row gap-4 min-h-0">
+                  {/* Left Side: Image Gallery */}
+                  <div className="flex-1 lg:max-w-2xl flex flex-col">
+                    {/* Hero Image - Flexible */}
+                    <figure className="flex-1 flex flex-col min-h-0">
+                      <div className="flex-1 relative overflow-hidden rounded-lg">
                         <img
-                          src={selectedProject.images[key as keyof typeof selectedProject.images]}
-                          alt={label}
+                          src={selectedProject.images[selectedImage as keyof typeof selectedProject.images]}
+                          alt={selectedImage === "exterior" ? "Exteriér" : 
+                               selectedImage === "interior" ? "Interiér" :
+                               selectedImage === "livingRoom" ? "Obývací pokoj" : "Kuchyň"}
                           className="w-full h-full object-cover"
                           loading="lazy"
                         />
-                        <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-200" />
-                        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-center py-1">
-                          <span className="text-xs font-medium">
-                            {label}
-                          </span>
-                        </div>
-                      </button>
-                    ))}
-                  </nav>
-                </div>
+                      </div>
+                      <figcaption className="sr-only">
+                        {selectedImage === "exterior" && "Exteriér domu"}
+                        {selectedImage === "interior" && "Interiér domu"}
+                        {selectedImage === "livingRoom" && "Obývací pokoj"}
+                        {selectedImage === "kitchen" && "Kuchyň"}
+                      </figcaption>
+                    </figure>
 
-                {/* Project Details */}
-                <div className="space-y-6 border-t pt-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <p className="text-sm text-gray-600">
-                          <strong>Lokalita:</strong> {selectedProject.location}
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          <strong>Rok:</strong> {selectedProject.year}
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          <strong>Velikost:</strong> {selectedProject.size}
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          <strong>Energetická třída:</strong> {selectedProject.energyClass}
-                        </p>
-                      </div>
-                      
-                      <div>
-                        <h4 className="font-semibold mb-3 text-base">Klíčové vlastnosti:</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {selectedProject.features.map((feature, index) => (
-                            <Badge
-                              key={index}
-                              variant="outline"
-                              className="bg-green-50 text-green-700 border-green-200 text-xs px-2 py-1"
-                            >
-                              {feature}
-                            </Badge>
-                          ))}
+                    {/* Thumbnail Navigation - Fixed */}
+                    <nav className="flex-shrink-0 flex gap-2 justify-center mt-3" role="tablist" aria-label="Galerie obrázků">
+                      {Object.entries({
+                        exterior: "Exteriér",
+                        interior: "Interiér", 
+                        livingRoom: "Obývací pokoj",
+                        kitchen: "Kuchyň"
+                      }).map(([key, label]) => (
+                        <button
+                          key={key}
+                          onClick={() => setSelectedImage(key)}
+                          role="tab"
+                          aria-selected={selectedImage === key}
+                          aria-label={`Zobrazit ${label.toLowerCase()}`}
+                          className={`
+                            relative flex-shrink-0 w-16 sm:w-20 md:w-24 aspect-[4/3] 
+                            overflow-hidden rounded-lg transition-all duration-200 
+                            focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
+                            ${selectedImage === key 
+                              ? 'ring-2 ring-green-500 ring-offset-2 opacity-100' 
+                              : 'opacity-70 hover:opacity-100 hover:ring-1 hover:ring-gray-300'
+                            }
+                          `}
+                        >
+                          <img
+                            src={selectedProject.images[key as keyof typeof selectedProject.images]}
+                            alt={label}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-200" />
+                          <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-center py-1">
+                            <span className="text-xs font-medium">
+                              {label}
+                            </span>
+                          </div>
+                        </button>
+                      ))}
+                    </nav>
+                  </div>
+
+                  {/* Right Side: Project Details - Scrollable if needed */}
+                  <div className="flex-1 lg:max-w-lg flex flex-col">
+                    <div className="flex-1 overflow-y-auto space-y-4">
+                      <div className="space-y-3">
+                        <div className="space-y-1">
+                          <p className="text-sm text-gray-600">
+                            <strong>Lokalita:</strong> {selectedProject.location}
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            <strong>Rok:</strong> {selectedProject.year}
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            <strong>Velikost:</strong> {selectedProject.size}
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            <strong>Energetická třída:</strong> {selectedProject.energyClass}
+                          </p>
                         </div>
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-4">
-                      {selectedProject.technicalParams && (
+                        
                         <div>
-                          <h4 className="font-semibold mb-3 text-base">Technické parametry:</h4>
-                          <div className="space-y-2 text-sm text-gray-600">
-                            {selectedProject.technicalParams.airTightness && (
-                              <p><strong>Vzduchotěsnost:</strong> {selectedProject.technicalParams.airTightness}</p>
-                            )}
-                            {selectedProject.technicalParams.energyDemand && (
-                              <p><strong>Energetická náročnost:</strong> {selectedProject.technicalParams.energyDemand}</p>
-                            )}
-                            {selectedProject.technicalParams.heatLoss && (
-                              <p><strong>Tepelná ztráta:</strong> {selectedProject.technicalParams.heatLoss}</p>
-                            )}
+                          <h4 className="font-semibold mb-2 text-sm">Klíčové vlastnosti:</h4>
+                          <div className="flex flex-wrap gap-1">
+                            {selectedProject.features.map((feature, index) => (
+                              <Badge
+                                key={index}
+                                variant="outline"
+                                className="bg-green-50 text-green-700 border-green-200 text-xs px-2 py-1"
+                              >
+                                {feature}
+                              </Badge>
+                            ))}
                           </div>
                         </div>
-                      )}
+                      </div>
                       
-                      <div>
-                        <h4 className="font-semibold mb-3 text-base">Popis:</h4>
-                        <p className="text-gray-700 text-sm leading-relaxed">
-                          {selectedProject.details}
-                        </p>
+                      <div className="space-y-3">
+                        {selectedProject.technicalParams && (
+                          <div>
+                            <h4 className="font-semibold mb-2 text-sm">Technické parametry:</h4>
+                            <div className="space-y-1 text-xs text-gray-600">
+                              {selectedProject.technicalParams.airTightness && (
+                                <p><strong>Vzduchotěsnost:</strong> {selectedProject.technicalParams.airTightness}</p>
+                              )}
+                              {selectedProject.technicalParams.energyDemand && (
+                                <p><strong>Energetická náročnost:</strong> {selectedProject.technicalParams.energyDemand}</p>
+                              )}
+                              {selectedProject.technicalParams.heatLoss && (
+                                <p><strong>Tepelná ztráta:</strong> {selectedProject.technicalParams.heatLoss}</p>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                        
+                        <div>
+                          <h4 className="font-semibold mb-2 text-sm">Popis:</h4>
+                          <p className="text-gray-700 text-xs leading-relaxed">
+                            {selectedProject.details}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 
+                {/* Close Button - Fixed */}
                 <DialogClose asChild>
-                  <Button className="w-full bg-green-700 hover:bg-green-800 text-base py-3">
+                  <Button className="flex-shrink-0 w-full bg-green-700 hover:bg-green-800 text-sm py-2 mt-4">
                     Zavřít
                   </Button>
                 </DialogClose>
