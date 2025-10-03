@@ -28,7 +28,7 @@ const PortfolioSection = () => {
   const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(
     null,
   );
-  const [selectedImage, setSelectedImage] = useState<string>("exterior");
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
 
   // Portfolio data is now imported from portfolioContent.ts
 
@@ -103,7 +103,7 @@ const PortfolioSection = () => {
             onOpenChange={(open) => {
               if (!open) {
                 setSelectedProject(null);
-                setSelectedImage("exterior");
+                setSelectedImageIndex(0);
               }
             }}
           >
@@ -112,7 +112,7 @@ const PortfolioSection = () => {
               onKeyDown={(e) => {
                 if (e.key === 'Escape') {
                   setSelectedProject(null);
-                  setSelectedImage("exterior");
+                  setSelectedImageIndex(0);
                 }
               }}
             >
@@ -135,56 +135,46 @@ const PortfolioSection = () => {
                     <figure className="flex-1 flex flex-col min-h-0">
                       <div className="flex-1 relative overflow-hidden rounded-lg">
                         <img
-                          src={selectedProject.images[selectedImage as keyof typeof selectedProject.images]}
-                          alt={selectedImage === "exterior" ? "Exteriér" : 
-                               selectedImage === "interior" ? "Interiér" :
-                               selectedImage === "livingRoom" ? "Obývací pokoj" : "Kuchyň"}
+                          src={selectedProject.images[selectedImageIndex]?.src}
+                          alt={selectedProject.images[selectedImageIndex]?.alt}
                           className="w-full h-full object-cover"
                           loading="lazy"
                         />
                       </div>
                       <figcaption className="sr-only">
-                        {selectedImage === "exterior" && "Exteriér domu"}
-                        {selectedImage === "interior" && "Interiér domu"}
-                        {selectedImage === "livingRoom" && "Obývací pokoj"}
-                        {selectedImage === "kitchen" && "Kuchyň"}
+                        {selectedProject.images[selectedImageIndex]?.alt}
                       </figcaption>
                     </figure>
 
                     {/* Thumbnail Navigation - Fixed */}
                     <nav className="flex-shrink-0 flex gap-2 justify-center mt-3" role="tablist" aria-label="Galerie obrázků">
-                      {Object.entries({
-                        exterior: "Exteriér",
-                        interior: "Interiér", 
-                        livingRoom: "Obývací pokoj",
-                        kitchen: "Kuchyň"
-                      }).map(([key, label]) => (
+                      {selectedProject.images.map((image, index) => (
                         <button
-                          key={key}
-                          onClick={() => setSelectedImage(key)}
+                          key={index}
+                          onClick={() => setSelectedImageIndex(index)}
                           role="tab"
-                          aria-selected={selectedImage === key}
-                          aria-label={`Zobrazit ${label.toLowerCase()}`}
+                          aria-selected={selectedImageIndex === index}
+                          aria-label={`Zobrazit ${image.label.toLowerCase()}`}
                           className={`
                             relative flex-shrink-0 w-16 sm:w-20 md:w-24 aspect-[4/3] 
                             overflow-hidden rounded-lg transition-all duration-200 
                             focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
-                            ${selectedImage === key 
+                            ${selectedImageIndex === index 
                               ? 'ring-2 ring-green-500 ring-offset-2 opacity-100' 
                               : 'opacity-70 hover:opacity-100 hover:ring-1 hover:ring-gray-300'
                             }
                           `}
                         >
                           <img
-                            src={selectedProject.images[key as keyof typeof selectedProject.images]}
-                            alt={label}
+                            src={image.src}
+                            alt={image.alt}
                             className="w-full h-full object-cover"
                             loading="lazy"
                           />
                           <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-200" />
                           <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-center py-1">
                             <span className="text-xs font-medium">
-                              {label}
+                              {image.label}
                             </span>
                           </div>
                         </button>
@@ -278,7 +268,7 @@ interface PortfolioCardProps {
 
 const PortfolioCard = ({ project, onSelect }: PortfolioCardProps) => {
   return (
-    <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg bg-white">
+    <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg bg-white flex flex-col h-full">
       <div className="h-48 overflow-hidden">
         <img
           src={project.image}
@@ -286,43 +276,45 @@ const PortfolioCard = ({ project, onSelect }: PortfolioCardProps) => {
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
         />
       </div>
-      <CardHeader className="pb-2">
-        <CardTitle className="text-xl">{project.title}</CardTitle>
-        <CardDescription>{project.description}</CardDescription>
-        <div className="text-xs text-gray-500 mt-2">
-          {project.location} • {project.year} • {project.size}
-        </div>
-      </CardHeader>
-      <CardContent className="pb-2">
-        <div className="flex flex-wrap gap-1">
-          {project.features.slice(0, 2).map((feature, index) => (
-            <Badge
-              key={index}
-              variant="outline"
-              className="bg-green-50 text-green-700 border-green-200 text-xs"
-            >
-              {feature}
-            </Badge>
-          ))}
-          {project.features.length > 2 && (
-            <Badge
-              variant="outline"
-              className="bg-gray-50 text-gray-500 border-gray-200 text-xs"
-            >
-              +{project.features.length - 2} další
-            </Badge>
-          )}
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button
-          onClick={onSelect}
-          variant="outline"
-          className="w-full border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
-        >
-          Zobrazit detail
-        </Button>
-      </CardFooter>
+      <div className="flex-1 flex flex-col">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-xl">{project.title}</CardTitle>
+          <CardDescription>{project.description}</CardDescription>
+          <div className="text-xs text-gray-500 mt-2">
+            {project.location} • {project.year} • {project.size}
+          </div>
+        </CardHeader>
+        <CardContent className="pb-2 flex-1">
+          <div className="flex flex-wrap gap-1">
+            {project.features.slice(0, 2).map((feature, index) => (
+              <Badge
+                key={index}
+                variant="outline"
+                className="bg-green-50 text-green-700 border-green-200 text-xs"
+              >
+                {feature}
+              </Badge>
+            ))}
+            {project.features.length > 2 && (
+              <Badge
+                variant="outline"
+                className="bg-gray-50 text-gray-500 border-gray-200 text-xs"
+              >
+                +{project.features.length - 2} další
+              </Badge>
+            )}
+          </div>
+        </CardContent>
+        <CardFooter className="mt-auto">
+          <Button
+            onClick={onSelect}
+            variant="outline"
+            className="w-full border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
+          >
+            Zobrazit detail
+          </Button>
+        </CardFooter>
+      </div>
     </Card>
   );
 };

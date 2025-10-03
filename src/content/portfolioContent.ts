@@ -1,17 +1,18 @@
 // Portfolio Content Configuration
 // Real projects based on BM Create portfolio
 
+export interface PortfolioImage {
+  src: string;
+  alt: string;
+  label: string;
+}
+
 export interface PortfolioItem {
   id: string;
   title: string;
   description: string;
-  image: string; // Main exterior image for the card
-  images: {
-    exterior: string;
-    interior: string;
-    livingRoom: string;
-    kitchen: string;
-  };
+  image: string; // Main image for the card
+  images: PortfolioImage[]; // Flexible array of images
   category: "residential" | "commercial" | "renovation" | "public";
   features: string[];
   details: string;
@@ -32,14 +33,24 @@ export const portfolioItems: PortfolioItem[] = [
     id: "1",
     title: "Dům pro hosty - Nebušice",
     description: "Pasivní bungalov s výjimečným designem a zelnou střechou napojenu na okolní louku.",
-    // Use your local images here
     image: "/images/portfolio/nebusice/exterior.jpg",
-    images: {
-      exterior: "/images/portfolio/nebusice/exterior.jpg",
-      interior: "/images/portfolio/nebusice/interior.jpg",
-      livingRoom: "/images/portfolio/nebusice/living-room.jpg",
-      kitchen: "/images/portfolio/nebusice/kitchen.jpg"
-    },
+    images: [
+      {
+        src: "/images/portfolio/nebusice/exterior.jpg",
+        alt: "Exteriér pasivního domu pro hosty",
+        label: "Exteriér"
+      },
+      {
+        src: "/images/portfolio/nebusice/vytapena-podlaha.jpg",
+        alt: "Vytápěná podlaha",
+        label: "Vytápěná podlaha"
+      },
+      {
+        src: "/images/portfolio/nebusice/hruba-stavba.jpg",
+        alt: "Hrubá stavba",
+        label: "Hrubá stavba"
+      }
+    ],
     category: "residential",
     location: "Nebušice - Praha",
     year: 2021,
@@ -66,12 +77,23 @@ export const portfolioItems: PortfolioItem[] = [
     title: "Rodinný dům Mnichovice",
     description: "Moderní rodinný dům s výjimečnými parametry vzduchotěsnosti a energetické úspornosti.",
     image: "/images/portfolio/mnichovice/exterior.jpg",
-    images: {
-      exterior: "/images/portfolio/mnichovice/exterior.jpg",
-      interior: "/images/portfolio/mnichovice/interior.jpg",
-      livingRoom: "/images/portfolio/mnichovice/living-room.jpg",
-      kitchen: "/images/portfolio/mnichovice/kitchen.jpg"
-    },
+    images: [
+      {
+        src: "/images/portfolio/mnichovice/exterior.jpg",
+        alt: "Exteriér moderního rodinného domu",
+        label: "Exteriér"
+      },
+      {
+        src: "/images/portfolio/mnichovice/hruba-stavba.jpg",
+        alt: "Hrubá stavba",
+        label: "Hrubá stavba"
+      },
+      {
+        src: "/images/portfolio/mnichovice/exterior-2.jpg",
+        alt: "Detail exteriéru",
+        label: "Exteriér"
+      }
+    ],
     category: "residential",
     location: "Mnichovice",
     year: 2021,
@@ -96,12 +118,28 @@ export const portfolioItems: PortfolioItem[] = [
     title: "Rodinný dům Sluštice", 
     description: "Rychle realizovaný rodinný dům s kombinací ploché střechy a pálené tašky.",
     image: "/images/portfolio/slustice/exterior.jpg",
-    images: {
-      exterior: "/images/portfolio/slustice/exterior.jpg",
-      interior: "/images/portfolio/slustice/interior.jpg",
-      livingRoom: "/images/portfolio/slustice/living-room.jpg",
-      kitchen: "/images/portfolio/slustice/kitchen.jpg"
-    },
+    images: [
+      {
+        src: "/images/portfolio/slustice/exterior.jpg",
+        alt: "Exteriér rychle realizovaného rodinného domu",
+        label: "Exteriér"
+      },
+      {
+        src: "/images/portfolio/slustice/detail-exterieru.jpg",
+        alt: "Detail exteriéru",
+        label: "Detail exteriéru"
+      },
+      {
+        src: "/images/portfolio/slustice/hruba-stavba.jpg",
+        alt: "Hrubá stavba",
+        label: "Hrubá stavba"
+      },
+      {
+        src: "/images/portfolio/slustice/vzduchotechnika.jpg",
+        alt: "Vzduchové komponenty",
+        label: "Vzduchové komponenty"
+      }
+    ],
     category: "residential",
     location: "Sluštice",
     year: 2023,
