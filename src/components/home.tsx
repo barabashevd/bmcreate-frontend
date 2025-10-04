@@ -14,7 +14,7 @@ const Home = () => {
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center">
             <img 
-              src="/images/logo/logo.png" 
+              src="/images/logo/logo-fixed3.png" 
               alt={company.name}
               className="h-10 w-auto"
             />
@@ -111,7 +111,7 @@ const Home = () => {
             <div className="lg:col-span-2">
               <div className="mb-6">
                 <img 
-                  src="/images/logo/logo.png" 
+                  src="/images/logo/logo-fixed3.png" 
                   alt={company.name}
                   className="h-12 w-auto mb-4 filter brightness-0 invert"
                 />

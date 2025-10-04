@@ -29,6 +29,7 @@ const PortfolioSection = () => {
     null,
   );
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
+  const [showAllProjects, setShowAllProjects] = useState<boolean>(false);
 
   // Portfolio data is now imported from portfolioContent.ts
 
@@ -55,13 +56,16 @@ const PortfolioSection = () => {
 
           <TabsContent value="all" className="mt-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {portfolioItems.map((item) => (
-                <PortfolioCard
-                  key={item.id}
-                  project={item}
-                  onSelect={() => setSelectedProject(item)}
-                />
-              ))}
+              {portfolioItems
+                .sort((a, b) => parseInt(a.id) - parseInt(b.id))
+                .slice(0, showAllProjects ? portfolioItems.length : 3)
+                .map((item) => (
+                  <PortfolioCard
+                    key={item.id}
+                    project={item}
+                    onSelect={() => setSelectedProject(item)}
+                  />
+                ))}
             </div>
           </TabsContent>
 
@@ -71,6 +75,8 @@ const PortfolioSection = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {portfolioItems
                     .filter((item) => item.category === category)
+                    .sort((a, b) => parseInt(a.id) - parseInt(b.id))
+                    .slice(0, showAllProjects ? portfolioItems.length : 3)
                     .map((item) => (
                       <PortfolioCard
                         key={item.id}
@@ -84,14 +90,15 @@ const PortfolioSection = () => {
           )}
         </Tabs>
 
-        {/* Only show "More projects" button if there are more than 6 projects */}
-        {portfolioItems.length > 4 && (
+        {/* Show "More/Less projects" button if there are more than 3 projects */}
+        {portfolioItems.length > 3 && (
           <div className="text-center mt-10">
             <Button
               variant="outline"
               className="border-green-700 text-green-700 hover:bg-green-700 hover:text-white"
+              onClick={() => setShowAllProjects(!showAllProjects)}
             >
-              Zobrazit více projektů
+              {showAllProjects ? "Zobrazit méně projektů" : "Zobrazit více projektů"}
             </Button>
           </div>
         )}

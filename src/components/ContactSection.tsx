@@ -224,7 +224,8 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
             <Card className="shadow-lg overflow-hidden">
               <div className="h-[300px] w-full bg-gray-200">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82387.25756473689!2d14.3826!3d50.0755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b939c0970798b%3A0x400af0f66164090!2sPrague%2C%20Czechia!5e0!3m2!1sen!2sus!4v1652345678901!5m2!1sen!2sus"
+                  // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82387.25756473689!2d14.3826!3d50.0755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b939c0970798b%3A0x400af0f66164090!2sPrague%2C%20Czechia!5e0!3m2!1sen!2sus!4v1652345678901!5m2!1sen!2sus"
+                  src="https://maps.google.com/maps?q=Zlat%C3%A1+62%2C+250+83&output=embed"
                   width="100%"
                   height="300"
                   style={{ border: 0 }}
