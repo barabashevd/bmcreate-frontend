@@ -32,7 +32,7 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Basic validation
@@ -54,14 +54,42 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
       return;
     }
 
-    // Simulate form submission
-    setTimeout(() => {
-      setFormStatus({
-        type: "success",
-        message: "Děkujeme za Vaši zprávu! Budeme Vás kontaktovat co nejdříve.",
+    // Show loading state
+    setFormStatus({
+      type: null,
+      message: "Odesílám zprávu...",
+    });
+
+    try {
+      const response = await fetch('/contact-handler.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
       });
-      setFormState({ name: "", email: "", phone: "", message: "" });
-    }, 1000);
+
+      const result = await response.json();
+
+      if (result.success) {
+        setFormStatus({
+          type: "success",
+          message: result.message,
+        });
+        setFormState({ name: "", email: "", phone: "", message: "" });
+      } else {
+        setFormStatus({
+          type: "error",
+          message: result.message || "Chyba při odesílání zprávy. Zkuste to prosím později.",
+        });
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setFormStatus({
+        type: "error",
+        message: "Chyba při odesílání zprávy. Zkuste to prosím později.",
+      });
+    }
   };
 
   return (
@@ -83,9 +111,15 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
             <CardContent className="p-6">
               <h3 className="text-xl font-semibold mb-4">Napište nám</h3>
 
-              {formStatus.type && (
+              {formStatus.message && (
                 <Alert
-                  className={`mb-4 ${formStatus.type === "success" ? "bg-green-50 text-green-800 border-green-200" : "bg-red-50 text-red-800 border-red-200"}`}
+                  className={`mb-4 ${
+                    formStatus.type === "success" 
+                      ? "bg-green-50 text-green-800 border-green-200" 
+                      : formStatus.type === "error"
+                      ? "bg-red-50 text-red-800 border-red-200"
+                      : "bg-blue-50 text-blue-800 border-blue-200"
+                  }`}
                 >
                   <AlertDescription>{formStatus.message}</AlertDescription>
                 </Alert>

@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     // Prepare email content
-    $to = 'barabashev@bmcreate.cz';
+    $to = 'info@bmcreate.cz';
     $subject = 'Nová zpráva z webu - ' . $name;
     
     $body = "
