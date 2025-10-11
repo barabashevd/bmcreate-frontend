@@ -13,6 +13,9 @@ interface ContactSectionProps {
 }
 
 const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
+  // used for the anti-abuse minimum-fill-time
+  const [startedAt] = useState(() => Date.now());
+
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -61,12 +64,15 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
     });
 
     try {
-      const response = await fetch('/contact-handler.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formState),
+      const response = await fetch("https://test.bmcreate.cz/contact-handler.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formState,
+          // REQUIRED by your PHP handler:
+          elapsedMs: Date.now() - startedAt, // must be >= 3000ms
+          website: "",                       // honeypot must be empty
+        }),
       });
 
       const result = await response.json();
@@ -74,17 +80,19 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
       if (result.success) {
         setFormStatus({
           type: "success",
-          message: result.message,
+          message: result.message ?? "Děkujeme! Vaše zpráva byla odeslána.",
         });
         setFormState({ name: "", email: "", phone: "", message: "" });
       } else {
         setFormStatus({
           type: "error",
-          message: result.message || "Chyba při odesílání zprávy. Zkuste to prosím později.",
+          message:
+            result.message ||
+            "Chyba při odesílání zprávy. Zkuste to prosím později.",
         });
       }
     } catch (error) {
-      console.error('Form submission error:', error);
+      console.error("Form submission error:", error);
       setFormStatus({
         type: "error",
         message: "Chyba při odesílání zprávy. Zkuste to prosím později.",
@@ -114,8 +122,8 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
               {formStatus.message && (
                 <Alert
                   className={`mb-4 ${
-                    formStatus.type === "success" 
-                      ? "bg-green-50 text-green-800 border-green-200" 
+                    formStatus.type === "success"
+                      ? "bg-green-50 text-green-800 border-green-200"
                       : formStatus.type === "error"
                       ? "bg-red-50 text-red-800 border-red-200"
                       : "bg-blue-50 text-blue-800 border-blue-200"
@@ -125,7 +133,18 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
                 </Alert>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+                {/* Honeypot (hidden; bots fill it) */}
+                <input
+                  type="text"
+                  name="website"
+                  value=""
+                  onChange={() => {}}
+                  style={{ display: "none" }}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+
                 <div className="space-y-2">
                   <Label htmlFor="name">Jméno a příjmení *</Label>
                   <Input
@@ -198,9 +217,7 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
                     <MapPin className="h-5 w-5 text-[#ff6b35] mr-3 mt-1" />
                     <div>
                       <h4 className="font-medium">Adresa</h4>
-                      <p className="text-gray-600">
-                        {company.address}
-                      </p>
+                      <p className="text-gray-600">{company.address}</p>
                     </div>
                   </div>
 
@@ -256,18 +273,34 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
 
             {/* Map */}
             <Card className="shadow-lg overflow-hidden">
-              <div className="h-[300px] w-full bg-gray-200">
+              
+              <div className="h-[300px] w-full bg-gray-200 relative">
                 <iframe
-                  // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82387.25756473689!2d14.3826!3d50.0755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b939c0970798b%3A0x400af0f66164090!2sPrague%2C%20Czechia!5e0!3m2!1sen!2sus!4v1652345678901!5m2!1sen!2sus"
-                  src="https://maps.google.com/maps?q=Zlat%C3%A1+62%2C+250+83&output=embed"
+                  src="https://maps.google.com/maps?q=Zlat%C3%A1+62%2C+Zlat%C3%A1+250+83&output=embed"
                   width="100%"
                   height="300"
                   style={{ border: 0 }}
                   allowFullScreen={false}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Company Location"
+                  title="BM Create - Zlatá 62, 250 83"
                 />
+                {/* Fallback for when iframe fails */}
+                <div className="absolute inset-0 bg-gray-200 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                  <div className="text-center">
+                    <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-2" />
+                    <p className="text-gray-600 mb-4">Mapa se nenačetla</p>
+                    <a
+                      href="https://maps.google.com/maps?q=Zlat%C3%A1+62%2C+250+83"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 bg-[#2c5f2d] text-white rounded-lg hover:bg-[#234a24] transition-colors"
+                    >
+                      <MapPin className="h-4 w-4 mr-2" />
+                      Otevřít v Mapách Google
+                    </a>
+                  </div>
+                </div>
               </div>
             </Card>
           </div>

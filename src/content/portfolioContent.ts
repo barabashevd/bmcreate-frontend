@@ -33,7 +33,7 @@ export const portfolioItems: PortfolioItem[] = [
     id: "4",
     title: "Pasivní dům pro hosty",
     description:
-      "Pasivní bungalov s výjimečným designem a zelnou střechou napojenu na okolní louku.",
+      "Pasivní bungalov s výjimečným designem a zelenou střechou napojenu na okolní louku.",
     image: "/images/portfolio/nebusice/exterior2.png",
     images: [
       {
