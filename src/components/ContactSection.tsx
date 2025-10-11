@@ -64,7 +64,7 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
     });
 
     try {
-      const response = await fetch("https://test.bmcreate.cz/contact-handler.php", {
+      const response = await fetch("https://bmcreate.cz/contact-handler.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -273,8 +273,7 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
 
             {/* Map */}
             <Card className="shadow-lg overflow-hidden">
-              
-              <div className="h-[300px] w-full bg-gray-200 relative">
+              <div className="h-[300px] w-full bg-gray-200">
                 <iframe
                   src="https://maps.google.com/maps?q=Zlat%C3%A1+62%2C+Zlat%C3%A1+250+83&output=embed"
                   width="100%"
@@ -285,22 +284,6 @@ const ContactSection = ({ id = "contact" }: ContactSectionProps) => {
                   referrerPolicy="no-referrer-when-downgrade"
                   title="BM Create - Zlatá 62, 250 83"
                 />
-                {/* Fallback for when iframe fails */}
-                <div className="absolute inset-0 bg-gray-200 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                  <div className="text-center">
-                    <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-                    <p className="text-gray-600 mb-4">Mapa se nenačetla</p>
-                    <a
-                      href="https://maps.google.com/maps?q=Zlat%C3%A1+62%2C+250+83"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center px-4 py-2 bg-[#2c5f2d] text-white rounded-lg hover:bg-[#234a24] transition-colors"
-                    >
-                      <MapPin className="h-4 w-4 mr-2" />
-                      Otevřít v Mapách Google
-                    </a>
-                  </div>
-                </div>
               </div>
             </Card>
           </div>

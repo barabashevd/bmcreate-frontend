@@ -74,12 +74,7 @@ if (!is_array($data)) {
   exit;
 }
 
-// ------- Logging setup -------
-$logDir = __DIR__ . '/_private_logs';
-if (!is_dir($logDir)) { @mkdir($logDir, 0700, true); }
-if (!is_writable($logDir)) { @chmod($logDir, 0755); } // best-effort
-
-// ------- Anti-abuse: honeypot + min time + rate limit -------
+// ------- Anti-abuse: honeypot + min time -------
 $honeypot  = trim((string)($data['website']   ?? '')); // hidden field must be empty
 $elapsedMs = (int)($data['elapsedMs'] ?? 0);          // client-measured time
 if ($honeypot !== '' || $elapsedMs < 3000) {
@@ -87,20 +82,6 @@ if ($honeypot !== '' || $elapsedMs < 3000) {
   echo json_encode(['success' => true, 'message' => 'Děkujeme za zprávu.']);
   exit;
 }
-
-// Per-IP rate limiting (very small, file-based)
-$ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
-$minKey = $logDir.'/rl-'.date('YmdHi').'-'.md5($ip);
-$dayKey = $logDir.'/rld-'.date('Ymd').'-'.md5($ip);
-$minCount = (int)@file_get_contents($minKey);
-$dayCount = (int)@file_get_contents($dayKey);
-if ($minCount >= 5 || $dayCount >= 20) {
-  http_response_code(429);
-  echo json_encode(['success' => false, 'message' => 'Příliš mnoho požadavků. Zkuste to později.']);
-  exit;
-}
-@file_put_contents($minKey, (string)($minCount+1));
-@file_put_contents($dayKey, (string)($dayCount+1));
 
 // ------- Validate inputs -------
 function clean(string $s): string {
@@ -183,10 +164,6 @@ try {
   $mail->send();
   echo json_encode(['success' => true, 'message' => 'Děkujeme! Vaše zpráva byla odeslána.']);
 } catch (Throwable $e) {
-  // Log the error server-side; do not leak details to client
-  @file_put_contents($logDir.'/mail-'.date('Ymd-His').'.log',
-    '['.date('c')."] ".$e->getMessage()."\n", FILE_APPEND);
-
   http_response_code(500);
   echo json_encode(['success' => false, 'message' => 'Zprávu se nepodařilo odeslat. Zkuste to prosím později.']);
 }
