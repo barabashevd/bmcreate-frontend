@@ -34,28 +34,28 @@ const PortfolioSection = () => {
   // Portfolio data is now imported from portfolioContent.ts
 
   return (
-    <section id="portfolio" className="py-16 px-4 md:px-8 bg-gray-50">
+    <section id="portfolio" className="py-12 sm:py-16 px-4 sm:px-6 md:px-8 bg-gray-50">
       <div className="container mx-auto max-w-7xl">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-900">
             {portfolio.title}
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto px-4">
             {portfolio.subtitle}
           </p>
         </div>
 
-        <Tabs defaultValue="all" className="mb-8">
-          <TabsList className="mx-auto flex justify-center">
-            <TabsTrigger value="all">{portfolioCategories.all}</TabsTrigger>
-            <TabsTrigger value="residential">{portfolioCategories.residential}</TabsTrigger>
+        <Tabs defaultValue="all" className="mb-6 sm:mb-8">
+          <TabsList className="mx-auto flex justify-center w-full sm:w-auto">
+            <TabsTrigger value="all" className="text-xs sm:text-sm">{portfolioCategories.all}</TabsTrigger>
+            <TabsTrigger value="residential" className="text-xs sm:text-sm">{portfolioCategories.residential}</TabsTrigger>
             {/* <TabsTrigger value="commercial">{portfolioCategories.commercial}</TabsTrigger> */}
             {/* <TabsTrigger value="renovation">{portfolioCategories.renovation}</TabsTrigger> */}
             {/* <TabsTrigger value="public">{portfolioCategories.public}</TabsTrigger> */}
           </TabsList>
 
-          <TabsContent value="all" className="mt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <TabsContent value="all" className="mt-4 sm:mt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {portfolioItems
                 .sort((a, b) => parseInt(a.id) - parseInt(b.id))
                 .slice(0, showAllProjects ? portfolioItems.length : 3)
@@ -71,8 +71,8 @@ const PortfolioSection = () => {
 
           {["residential", "commercial", "renovation", "public"].map(
             (category) => (
-              <TabsContent key={category} value={category} className="mt-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <TabsContent key={category} value={category} className="mt-4 sm:mt-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                   {portfolioItems
                     .filter((item) => item.category === category)
                     .sort((a, b) => parseInt(a.id) - parseInt(b.id))
@@ -92,10 +92,10 @@ const PortfolioSection = () => {
 
         {/* Show "More/Less projects" button if there are more than 3 projects */}
         {portfolioItems.length > 3 && (
-          <div className="text-center mt-10">
+          <div className="text-center mt-8 sm:mt-10">
             <Button
               variant="outline"
-              className="border-green-700 text-green-700 hover:bg-green-700 hover:text-white"
+              className="border-green-700 text-green-700 hover:bg-green-700 hover:text-white min-h-[44px] touch-manipulation"
               onClick={() => setShowAllProjects(!showAllProjects)}
             >
               {showAllProjects ? "Zobrazit méně projektů" : "Zobrazit více projektů"}
@@ -115,7 +115,7 @@ const PortfolioSection = () => {
             }}
           >
             <DialogContent 
-              className="!w-[min(95vw,1400px)] !max-w-[1400px] h-[95vh] flex flex-col p-0"
+              className="!w-[95vw] !max-w-[1400px] h-[95vh] flex flex-col p-0 mx-2 sm:mx-4"
               onKeyDown={(e) => {
                 if (e.key === 'Escape') {
                   setSelectedProject(null);
@@ -123,24 +123,24 @@ const PortfolioSection = () => {
                 }
               }}
             >
-              <div className="flex flex-col h-full p-6">
+              <div className="flex flex-col h-full overflow-hidden">
                 {/* Header - Fixed */}
-                <DialogHeader className="flex-shrink-0 mb-4">
-                  <DialogTitle className="text-xl md:text-2xl font-bold leading-tight">
+                <DialogHeader className="flex-shrink-0 p-3 sm:p-6 pb-2 sm:pb-3">
+                  <DialogTitle className="text-lg sm:text-xl md:text-2xl font-bold leading-tight break-words">
                     {selectedProject.title}
                   </DialogTitle>
-                  <DialogDescription className="text-sm md:text-base leading-relaxed">
+                  <DialogDescription className="text-xs sm:text-sm md:text-base leading-relaxed break-words">
                     {selectedProject.description}
                   </DialogDescription>
                 </DialogHeader>
 
-                {/* Main Content - Flexible */}
-                <div className="flex-1 flex flex-col lg:flex-row gap-4 min-h-0">
+                {/* Main Content - Flexible with proper overflow handling */}
+                <div className="flex-1 flex flex-col lg:flex-row gap-3 sm:gap-4 min-h-0 overflow-hidden p-3 sm:p-6 pt-0 sm:pt-0">
                   {/* Left Side: Image Gallery */}
-                  <div className="flex-1 lg:max-w-2xl flex flex-col">
+                  <div className="flex-1 lg:max-w-2xl flex flex-col min-h-0">
                     {/* Hero Image - Flexible */}
-                    <figure className="flex-1 flex flex-col min-h-0">
-                      <div className="flex-1 relative overflow-hidden rounded-lg">
+                    <figure className="flex-1 flex flex-col min-h-0 max-h-[300px] sm:max-h-[400px] lg:max-h-none">
+                      <div className="flex-1 relative overflow-hidden rounded-lg min-h-[150px] sm:min-h-[200px] lg:min-h-[250px] max-h-[300px] sm:max-h-[400px] lg:max-h-none">
                         <img
                           src={selectedProject.images[selectedImageIndex]?.src}
                           alt={selectedProject.images[selectedImageIndex]?.alt}
@@ -154,7 +154,7 @@ const PortfolioSection = () => {
                     </figure>
 
                     {/* Thumbnail Navigation - Fixed */}
-                    <nav className="flex-shrink-0 flex gap-2 justify-center mt-3" role="tablist" aria-label="Galerie obrázků">
+                    <nav className="flex-shrink-0 flex gap-1 sm:gap-2 justify-center mt-2 sm:mt-3 overflow-x-auto pb-1" role="tablist" aria-label="Galerie obrázků">
                       {selectedProject.images.map((image, index) => (
                         <button
                           key={index}
@@ -163,9 +163,10 @@ const PortfolioSection = () => {
                           aria-selected={selectedImageIndex === index}
                           aria-label={`Zobrazit ${image.label.toLowerCase()}`}
                           className={`
-                            relative flex-shrink-0 w-16 sm:w-20 md:w-24 aspect-[4/3] 
+                            relative flex-shrink-0 w-12 sm:w-16 md:w-20 lg:w-24 aspect-[4/3] 
                             overflow-hidden rounded-lg transition-all duration-200 
                             focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
+                            touch-manipulation
                             ${selectedImageIndex === index 
                               ? 'ring-2 ring-green-500 ring-offset-2 opacity-100' 
                               : 'opacity-70 hover:opacity-100 hover:ring-1 hover:ring-gray-300'
@@ -179,8 +180,8 @@ const PortfolioSection = () => {
                             loading="lazy"
                           />
                           <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-200" />
-                          <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-center py-1">
-                            <span className="text-xs font-medium">
+                          <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-center py-0.5 sm:py-1 px-0.5">
+                            <span className="text-[8px] sm:text-[10px] md:text-xs font-medium leading-tight block overflow-hidden text-ellipsis whitespace-nowrap">
                               {image.label}
                             </span>
                           </div>
@@ -189,33 +190,33 @@ const PortfolioSection = () => {
                     </nav>
                   </div>
 
-                  {/* Right Side: Project Details - Scrollable if needed */}
-                  <div className="flex-1 lg:max-w-lg flex flex-col">
-                    <div className="flex-1 overflow-y-auto space-y-4">
-                      <div className="space-y-3">
+                  {/* Right Side: Project Details - Scrollable */}
+                  <div className="flex-1 lg:max-w-lg flex flex-col min-h-0">
+                    <div className="flex-1 overflow-y-auto space-y-3 sm:space-y-4 pr-1">
+                      <div className="space-y-2 sm:space-y-3">
                         <div className="space-y-1">
-                          <p className="text-sm text-gray-600">
+                          <p className="text-xs sm:text-sm text-gray-600 break-words">
                             <strong>Lokalita:</strong> {selectedProject.location}
                           </p>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-xs sm:text-sm text-gray-600 break-words">
                             <strong>Rok:</strong> {selectedProject.year}
                           </p>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-xs sm:text-sm text-gray-600 break-words">
                             <strong>Velikost:</strong> {selectedProject.size}
                           </p>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-xs sm:text-sm text-gray-600 break-words">
                             <strong>Energetická třída:</strong> {selectedProject.energyClass}
                           </p>
                         </div>
                         
                         <div>
-                          <h4 className="font-semibold mb-2 text-sm">Klíčové vlastnosti:</h4>
+                          <h4 className="font-semibold mb-1 sm:mb-2 text-xs sm:text-sm">Klíčové vlastnosti:</h4>
                           <div className="flex flex-wrap gap-1">
                             {selectedProject.features.map((feature, index) => (
                               <Badge
                                 key={index}
                                 variant="outline"
-                                className="bg-green-50 text-green-700 border-green-200 text-xs px-2 py-1"
+                                className="bg-green-50 text-green-700 border-green-200 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 break-words"
                               >
                                 {feature}
                               </Badge>
@@ -224,27 +225,27 @@ const PortfolioSection = () => {
                         </div>
                       </div>
                       
-                      <div className="space-y-3">
+                      <div className="space-y-2 sm:space-y-3">
                         {selectedProject.technicalParams && (
                           <div>
-                            <h4 className="font-semibold mb-2 text-sm">Technické parametry:</h4>
-                            <div className="space-y-1 text-xs text-gray-600">
+                            <h4 className="font-semibold mb-1 sm:mb-2 text-xs sm:text-sm">Technické parametry:</h4>
+                            <div className="space-y-1 text-[10px] sm:text-xs text-gray-600">
                               {selectedProject.technicalParams.airTightness && (
-                                <p><strong>Vzduchotěsnost:</strong> {selectedProject.technicalParams.airTightness}</p>
+                                <p className="break-words"><strong>Vzduchotěsnost:</strong> {selectedProject.technicalParams.airTightness}</p>
                               )}
                               {selectedProject.technicalParams.energyDemand && (
-                                <p><strong>Energetická náročnost:</strong> {selectedProject.technicalParams.energyDemand}</p>
+                                <p className="break-words"><strong>Energetická náročnost:</strong> {selectedProject.technicalParams.energyDemand}</p>
                               )}
                               {selectedProject.technicalParams.heatLoss && (
-                                <p><strong>Tepelná ztráta:</strong> {selectedProject.technicalParams.heatLoss}</p>
+                                <p className="break-words"><strong>Tepelná ztráta:</strong> {selectedProject.technicalParams.heatLoss}</p>
                               )}
                             </div>
                           </div>
                         )}
                         
                         <div>
-                          <h4 className="font-semibold mb-2 text-sm">Popis:</h4>
-                          <p className="text-gray-700 text-xs leading-relaxed">
+                          <h4 className="font-semibold mb-1 sm:mb-2 text-xs sm:text-sm">Popis:</h4>
+                          <p className="text-gray-700 text-[10px] sm:text-xs leading-relaxed break-words">
                             {selectedProject.details}
                           </p>
                         </div>
@@ -254,11 +255,13 @@ const PortfolioSection = () => {
                 </div>
                 
                 {/* Close Button - Fixed */}
-                <DialogClose asChild>
-                  <Button className="flex-shrink-0 w-full bg-green-700 hover:bg-green-800 text-sm py-2 mt-4">
-                    Zavřít
-                  </Button>
-                </DialogClose>
+                <div className="flex-shrink-0 p-3 sm:p-6 pt-2 sm:pt-3">
+                  <DialogClose asChild>
+                    <Button className="w-full bg-green-700 hover:bg-green-800 text-sm py-3 sm:py-2 min-h-[44px] touch-manipulation">
+                      Zavřít
+                    </Button>
+                  </DialogClose>
+                </div>
               </div>
             </DialogContent>
           </Dialog>
@@ -276,7 +279,7 @@ interface PortfolioCardProps {
 const PortfolioCard = ({ project, onSelect }: PortfolioCardProps) => {
   return (
     <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg bg-white flex flex-col h-full">
-      <div className="h-48 overflow-hidden">
+      <div className="h-40 sm:h-48 overflow-hidden">
         <img
           src={project.image}
           alt={project.title}
@@ -284,14 +287,14 @@ const PortfolioCard = ({ project, onSelect }: PortfolioCardProps) => {
         />
       </div>
       <div className="flex-1 flex flex-col">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-xl">{project.title}</CardTitle>
-          <CardDescription>{project.description}</CardDescription>
+        <CardHeader className="pb-2 p-4 sm:p-6">
+          <CardTitle className="text-lg sm:text-xl">{project.title}</CardTitle>
+          <CardDescription className="text-sm sm:text-base">{project.description}</CardDescription>
           <div className="text-xs text-gray-500 mt-2">
             {project.location} • {project.year} • {project.size}
           </div>
         </CardHeader>
-        <CardContent className="pb-2 flex-1">
+        <CardContent className="pb-2 flex-1 p-4 sm:p-6 pt-0">
           <div className="flex flex-wrap gap-1">
             {project.features.slice(0, 2).map((feature, index) => (
               <Badge
@@ -312,11 +315,11 @@ const PortfolioCard = ({ project, onSelect }: PortfolioCardProps) => {
             )}
           </div>
         </CardContent>
-        <CardFooter className="mt-auto">
+        <CardFooter className="mt-auto p-4 sm:p-6 pt-0">
           <Button
             onClick={onSelect}
             variant="outline"
-            className="w-full border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
+            className="w-full border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white min-h-[44px] touch-manipulation"
           >
             Zobrazit detail
           </Button>

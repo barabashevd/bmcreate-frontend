@@ -24,17 +24,17 @@ const ServiceCard = ({
 }: ServiceCardProps) => {
   return (
     <Card className="flex flex-col h-full bg-white shadow-md hover:shadow-lg transition-shadow duration-300">
-      <CardHeader>
-        <div className="flex justify-center mb-4 text-[#2c5f2d]">{icon}</div>
-        <CardTitle className="text-xl text-center">{title}</CardTitle>
+      <CardHeader className="p-4 sm:p-6">
+        <div className="flex justify-center mb-3 sm:mb-4 text-[#2c5f2d]">{icon}</div>
+        <CardTitle className="text-lg sm:text-xl text-center">{title}</CardTitle>
       </CardHeader>
-      <CardContent className="flex-grow">
-        <CardDescription className="text-center">{description}</CardDescription>
+      <CardContent className="flex-grow p-4 sm:p-6 pt-0">
+        <CardDescription className="text-center text-sm sm:text-base">{description}</CardDescription>
       </CardContent>
-      <CardFooter className="flex justify-center pt-2 pb-6">
+      <CardFooter className="flex justify-center pt-2 pb-4 sm:pb-6 px-4 sm:px-6">
         <Button
           variant="outline"
-          className="border-[#2c5f2d] text-[#2c5f2d] hover:bg-[#2c5f2d] hover:text-white"
+          className="border-[#2c5f2d] text-[#2c5f2d] hover:bg-[#2c5f2d] hover:text-white w-full sm:w-auto min-h-[44px] touch-manipulation"
         >
           Více informací
         </Button>
@@ -63,18 +63,18 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section id="services" className="py-20 px-4 md:px-8 lg:px-16 bg-gray-50">
+    <section id="services" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 lg:px-16 bg-gray-50">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#2c5f2d]">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-[#2c5f2d]">
             {services.title}
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto px-4">
             {services.subtitle}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {serviceItems.map((service, index) => (
             <ServiceCard
               key={index}

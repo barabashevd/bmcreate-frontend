@@ -3,6 +3,8 @@
   RewriteEngine On
   RewriteBase /
   RewriteRule ^contact-handler\.php$ - [L]
+  RewriteRule ^error-log\.php$ - [L]
+  RewriteRule ^connectivity-test\.php$ - [L]
   RewriteRule ^_private_logs/ - [F]
 
 # SPA routing
@@ -40,6 +42,17 @@
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "DENY"
   Header always set Referrer-Policy "same-origin"
-  # Simplified CSP for development and Google Maps
-  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; frame-src 'self' https://maps.google.com https://www.google.com"
+  # Production CSP - secure but allows necessary functionality
+  Header always unset Content-Security-Policy
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://bmcreate.cz https://www.bmcreate.cz; frame-src 'self' https://maps.google.com https://www.google.com"
+  
+  # Force remove any existing CORS headers and set clean ones
+  <FilesMatch "\.(php)$">
+    Header always unset Access-Control-Allow-Origin
+    Header always unset Access-Control-Allow-Methods  
+    Header always unset Access-Control-Allow-Headers
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
+  </FilesMatch>
 </IfModule>
